@@ -26,18 +26,60 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>MersenneTwister.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <Content Include="LICENSE-BitScanner.txt" />
+    <Content Include="LICENSE-dSFMT-2.2.3.txt" />
+    <Content Include="LICENSE-mt19937-64.txt" />
+    <Content Include="LICENSE-mt19937ar-cok.txt" />
+    <Content Include="LICENSE-mt19937ar.txt" />
+    <Content Include="LICENSE-SFMT-1.4.1.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitScanner.cs" />
+    <Compile Include="DsfmtEdition.cs" />
+    <Compile Include="dSFMT\dsfmt_opt_gen_t.cs" />
+    <Compile Include="dSFMT\dsfmt_opt_t.cs" />
+    <Compile Include="dSFMT\dsfmt_t.cs" />
+    <Compile Include="dSFMT\dsfmt_t_params.cs" />
+    <Compile Include="DsfmtRandom.cs" />
+    <Compile Include="dSFMT\Idsfmt.cs" />
+    <Compile Include="dSFMT\Idsfmt_params.cs" />
+    <Compile Include="MTEdition.cs" />
+    <Compile Include="MT\Imt19937.cs" />
+    <Compile Include="MT\mt19937ar_cok_opt_t.cs" />
+    <Compile Include="MT\mt19937ar_cok_t.cs" />
+    <Compile Include="MT\mt19937_64_t.cs" />
+    <Compile Include="MT64Random.cs" />
+    <Compile Include="MT\mt19937ar_t.cs" />
+    <Compile Include="MTRandom.cs" />
+    <Compile Include="PreciseRandom.cs" />
+    <Compile Include="SeedUtil.cs" />
+    <Compile Include="SfmtEdition.cs" />
+    <Compile Include="SfmtRandom.cs" />
+    <Compile Include="SFMT\sfmt_base_t.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SFMT\Isfmt.cs" />
+    <Compile Include="SFMT\sfmt_opt_t.cs" />
+    <Compile Include="SFMT\sfmt_t.cs" />
+    <Compile Include="SFMT\sfmt_t_params.cs" />
+    <Compile Include="SFMT\w128_t.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MersenneTwister.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
