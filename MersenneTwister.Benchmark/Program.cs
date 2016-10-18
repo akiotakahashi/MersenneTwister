@@ -66,16 +66,16 @@ namespace MersenneTwister.Benchmark
             var t_cprng = Measure(new System.Security.Cryptography.RNGCryptoServiceProvider(), N, rng => {
                 rng.GetBytes(buf);
                 var x = 0L;
-                x += BitConverter.ToUInt32(buf, 0) >> 1;
-                x += BitConverter.ToUInt32(buf, 4) >> 1;
-                x += BitConverter.ToUInt32(buf, 8) >> 1;
-                x += BitConverter.ToUInt32(buf, 12) >> 1;
-                x += BitConverter.ToUInt32(buf, 16) >> 1;
-                x += BitConverter.ToUInt32(buf, 20) >> 1;
-                x += BitConverter.ToUInt32(buf, 24) >> 1;
-                x += BitConverter.ToUInt32(buf, 28) >> 1;
-                x += BitConverter.ToUInt32(buf, 32) >> 1;
-                x += BitConverter.ToUInt32(buf, 36) >> 1;
+                x += ToUInt32(buf, 0) >> 1;
+                x += ToUInt32(buf, 4) >> 1;
+                x += ToUInt32(buf, 8) >> 1;
+                x += ToUInt32(buf, 12) >> 1;
+                x += ToUInt32(buf, 16) >> 1;
+                x += ToUInt32(buf, 20) >> 1;
+                x += ToUInt32(buf, 24) >> 1;
+                x += ToUInt32(buf, 28) >> 1;
+                x += ToUInt32(buf, 32) >> 1;
+                x += ToUInt32(buf, 36) >> 1;
                 return x;
             }, out mean);
             Console.WriteLine(fmt, "RNGCrypt", t_cprng, mean);
@@ -136,9 +136,47 @@ namespace MersenneTwister.Benchmark
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int ToInt32(byte[] buf, int index)
+        {
+            return (int)ToUInt32(buf, index);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static uint ToUInt32(byte[] buf, int index)
+        {
+            var a = (uint)buf[index];
+            var b = (uint)buf[index + 1];
+            var c = (uint)buf[index + 2];
+            var d = (uint)buf[index + 3];
+            return a | (b << 8) | (c << 16) | (d << 24);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static long ToInt64(byte[] buf, int index)
+        {
+            return (long)ToUInt64(buf, index);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static ulong ToUInt64(byte[] buf, int index)
+        {
+            var x0 = (uint)buf[index];
+            var x1 = (uint)buf[index + 1];
+            var x2 = (uint)buf[index + 2];
+            var x3 = (uint)buf[index + 3];
+            var x4 = (uint)buf[index + 4];
+            var x5 = (uint)buf[index + 5];
+            var x6 = (uint)buf[index + 6];
+            var x7 = (uint)buf[index + 7];
+            var a = x0 | (x1 << 8) | (x2 << 16) | (x3 << 24);
+            var b = x4 | (x5 << 8) | (x6 << 16) | (x7 << 24);
+            return a | ((ulong)b << 32);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static double ToDouble(byte[] buf, int index)
         {
-            var x = BitConverter.ToUInt64(buf, index);
+            var x = ToUInt64(buf, index);
             uint a = ((uint)x) >> 5;
             uint b = (uint)(x >> 38);
             return (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
