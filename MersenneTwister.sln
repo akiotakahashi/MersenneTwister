@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MersenneTwister.Tests", "MersenneTwister.Tests\MersenneTwister.Tests.csproj", "{CE129CFC-57E2-49F3-9C41-22C35BDEFF63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MersenneTwister.Benchmark", "MersenneTwister.Benchmark\MersenneTwister.Benchmark.csproj", "{690F202C-566C-4325-B23C-91F37806078A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{CE129CFC-57E2-49F3-9C41-22C35BDEFF63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE129CFC-57E2-49F3-9C41-22C35BDEFF63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE129CFC-57E2-49F3-9C41-22C35BDEFF63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690F202C-566C-4325-B23C-91F37806078A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690F202C-566C-4325-B23C-91F37806078A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690F202C-566C-4325-B23C-91F37806078A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690F202C-566C-4325-B23C-91F37806078A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
