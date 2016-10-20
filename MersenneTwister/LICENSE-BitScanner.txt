@@ -1,8 +1,0 @@
-﻿The implementation of MersenneTwister.BitScanner class is derived from
-Chess Programming Wiki (https://chessprogramming.wikispaces.com/)
-
-Contributions to https://chessprogramming.wikispaces.com/ are licensed under a
-Creative Commons Attribution Share-Alike 3.0 License.
-
-URL    : https://chessprogramming.wikispaces.com/BitScan#DeBruijnMultiplation
-LICENSE: https://creativecommons.org/licenses/by-sa/3.0/
