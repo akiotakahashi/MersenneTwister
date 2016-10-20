@@ -8,9 +8,9 @@ namespace MersenneTwister.Tests
     {
         private readonly Random rng = DsfmtRandom.Create();
 
-        private static void Test(uint value) {
-            Assert.AreEqual(CalcForward(value), BitScanner.LSB(value));
-            Assert.AreEqual(CalcReverse(value), BitScanner.MSB(value));
+        private static void Test(uint value)
+        {
+            Assert.AreEqual(1UL << (CalcReverse(value) + 1), (ulong)BitScanner.Mask(value) + 1);
         }
 
         private static int CalcForward(ulong value)
@@ -30,6 +30,23 @@ namespace MersenneTwister.Tests
                 pos++;
             }
             return pos;
+        }
+
+        [TestMethod]
+        public void BitScanner_Mask()
+        {
+            Assert.AreEqual(0U, BitScanner.Mask(0));
+            Assert.AreEqual(1U, BitScanner.Mask(1));
+            Assert.AreEqual(3U, BitScanner.Mask(2));
+            Assert.AreEqual(3U, BitScanner.Mask(3));
+            Assert.AreEqual(7U, BitScanner.Mask(4));
+            Assert.AreEqual(7U, BitScanner.Mask(5));
+            Assert.AreEqual(7U, BitScanner.Mask(6));
+            Assert.AreEqual(7U, BitScanner.Mask(7));
+            Assert.AreEqual(0x7FFFFFFFU, BitScanner.Mask(0x7FFFFFFF));
+            Assert.AreEqual(0xFFFFFFFFU, BitScanner.Mask(0x80000000));
+            Assert.AreEqual(0xFFFFFFFFU, BitScanner.Mask(0x80000001));
+            Assert.AreEqual(0xFFFFFFFFU, BitScanner.Mask(0xFFFFFFFF));
         }
 
         [TestMethod]

@@ -8,7 +8,7 @@ namespace MersenneTwister
         private readonly Random rng;
 
         private int cachedMaxValue = -1;
-        private int cachedValueMsb = -1;
+        private int cachedValueMask = -1;
 
         public PreciseRandom(Random baseRandom)
         {
@@ -22,22 +22,24 @@ namespace MersenneTwister
 
         public override int Next(int maxValue)
         {
-            if (maxValue <= 0) { throw new ArgumentOutOfRangeException(); }
+            if (maxValue <= 0) {
+                if (maxValue == 0) { return 0; }
+                throw new ArgumentOutOfRangeException();
+            }
             // determine the position of MSB
-            int pos;
+            int mask;
             if (maxValue == this.cachedMaxValue) {
-                pos = this.cachedValueMsb;
+                mask = this.cachedValueMask;
             }
             else {
                 this.cachedMaxValue = maxValue;
-                pos = this.cachedValueMsb = BitScanner.MSB((ulong)maxValue);
+                mask = this.cachedValueMask = (int)BitScanner.Mask((uint)maxValue);
             }
             //
-            var val = (int)((1UL << pos) - 1);
             int num;
             do {
                 num = this.rng.Next();
-                num &= val;
+                num &= mask;
             } while (num >= maxValue);
             return num;
         }
