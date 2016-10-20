@@ -14,7 +14,7 @@ namespace MersenneTwister.SFMT
         void sfmt_fill_array64(uint64_t[] array, int size);
         void sfmt_init_gen_rand(uint32_t seed);
         void sfmt_init_by_array(uint32_t[] init_key, uint key_length);
-        void sfmt_init_by_array(params uint32_t[] init_key);
+        void sfmt_init_by_array(uint32_t[] init_key);
         uint32_t sfmt_genrand_uint32();
         uint64_t sfmt_genrand_uint64();
     }

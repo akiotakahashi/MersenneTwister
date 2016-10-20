@@ -699,7 +699,7 @@ namespace MersenneTwister.dSFMT
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void dsfmt_init_by_array(params uint32_t[] init_key)
+        public void dsfmt_init_by_array(uint32_t[] init_key)
         {
             dsfmt_init_by_array(init_key, (uint)init_key.Length);
         }

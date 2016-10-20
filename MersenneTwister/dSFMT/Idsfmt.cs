@@ -11,7 +11,7 @@ namespace MersenneTwister.dSFMT
         int DSFMT_N { get; }
         string dsfmt_get_idstring();
         void dsfmt_init_gen_rand(uint32_t seed);
-        void dsfmt_init_by_array(params uint32_t[] init_key);
+        void dsfmt_init_by_array(uint32_t[] init_key);
         uint32_t dsfmt_genrand_uint32();
         double dsfmt_genrand_open_open();
         double dsfmt_genrand_close_open();
