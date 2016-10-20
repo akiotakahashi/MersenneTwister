@@ -38,14 +38,10 @@ Further more, PreciseRandom class provides accuracy results of Random.Next(int m
     <dependencies />
   </metadata>
   <files>
-    <!--
-    <file src="bin\Release\*.dll" target="lib\net45+wp80+win+MonoAndroid10+MonoTouch10" />
-    <file src="bin\Release\*.dll" target="lib\dotnet" />
-    <file src="bin\Release\*.dll" target="lib\net45" />
-    <file src="bin\Release\*.dll" target="lib\win" />
-    <file src="bin\Release\*.dll" target="lib\MonoAndroid10" />
-    <file src="bin\Release\*.dll" target="lib\MonoTouch10" />
-    -->
-    <file src="bin\Release\*.dll" target="lib\portable" />
+    <file src="bin\Release\*.dll" target="lib\portable-net45+netcore45+win8+wp8" />
+    <file src="bin\Release\*.dll" target="lib\uap" />
+    <file src="bin\Release\*.dll" target="lib\netstandard1.0" />
+    <file src="bin\Release\*.dll" target="lib\netcoreapp1.0" />
+    <file src="..\nuget\LICENSES-MersenneTwister.txt" target="content" />
   </files>
 </package>
