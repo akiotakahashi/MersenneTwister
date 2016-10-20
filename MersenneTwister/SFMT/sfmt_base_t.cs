@@ -6,15 +6,8 @@ using uint64_t = System.UInt64;
 
 namespace MersenneTwister.SFMT
 {
-    public abstract class sfmt_base_t
+    public abstract class sfmt_base_t : MT.mt_base_t
     {
-        protected sfmt_base_t()
-        {
-            if (!BitConverter.IsLittleEndian) {
-                throw new PlatformNotSupportedException("MersenneTwister does not support Big Endian platforms");
-            }
-        }
-
         [System.Diagnostics.Conditional("DEBUG")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected static void assert(bool condition)

@@ -61,7 +61,7 @@ using uint64_t = System.UInt64;
 
 namespace MersenneTwister.MT
 {
-    public sealed class mt19937_64_t
+    public sealed class mt19937_64_t : mt_base_t
     {
         private const int NN = 312;
         private const int MM = 156;

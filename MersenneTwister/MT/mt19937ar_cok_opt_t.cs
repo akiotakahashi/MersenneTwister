@@ -48,7 +48,7 @@ using System.Runtime.CompilerServices;
 
 namespace MersenneTwister.MT
 {
-    public sealed class mt19937ar_cok_opt_t : Imt19937
+    public sealed class mt19937ar_cok_opt_t : mt_base_t, Imt19937
     {
         /* Period parameters */
         private const int N = 624;
