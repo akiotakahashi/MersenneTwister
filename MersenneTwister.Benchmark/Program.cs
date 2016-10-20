@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MersenneTwister.Benchmark.Unsafe;
 
 namespace MersenneTwister.Benchmark
 {
@@ -45,10 +46,14 @@ namespace MersenneTwister.Benchmark
             Console.WriteLine(fmt, "MT19937-cok-opt", t_mt32_opt, mean);
             var t_mt64 = Measure(new MT64Random(seed1), N, proci, out mean);
             Console.WriteLine(fmt, "MT64-19937", t_mt64, mean);
+            var t_sfmt_ptr = Measure(new SfmtRandom<unsafe_sfmt_t>(seed1), N, proci, out mean);
+            Console.WriteLine(fmt, "SFMT-19937-ptr", t_sfmt_ptr, mean);
             var t_sfmt_org = Measure(SfmtRandom.Create(seed1, SfmtEdition.Original_19937), N, proci, out mean);
             Console.WriteLine(fmt, "SFMT-19937", t_sfmt_org, mean);
             var t_sfmt_opt = Measure(SfmtRandom.Create(seed1, SfmtEdition.Opt_19937), N, proci, out mean);
             Console.WriteLine(fmt, "SFMT-opt-19937", t_sfmt_opt, mean);
+            var t_dsfmt_ptr = Measure(new DsfmtRandom<unsafe_dsfmt_t>(seed1), N, proci, out mean);
+            Console.WriteLine(fmt, "dSFMT-19937-ptr", t_dsfmt_ptr, mean);
             var t_dsfmt_org = Measure(DsfmtRandom.Create(seed1, DsfmtEdition.Original_19937), N, proci, out mean);
             Console.WriteLine(fmt, "dSFMT-19937", t_dsfmt_org, mean);
             var t_dsfmt_opt = Measure(DsfmtRandom.Create(seed1, DsfmtEdition.Opt_19937), N, proci, out mean);
@@ -99,10 +104,14 @@ namespace MersenneTwister.Benchmark
             Console.WriteLine(fmt, "MT19937-cok-opt", t_mt32_opt, mean);
             t_mt64 = Measure(new MT64Random(), N, procd, out mean);
             Console.WriteLine(fmt, "MT64-19937", t_mt64, mean);
+            t_sfmt_ptr = Measure(new SfmtRandom<unsafe_sfmt_t>(seed2), N, procd, out mean);
+            Console.WriteLine(fmt, "SFMT-19937-ptr", t_sfmt_org, mean);
             t_sfmt_org = Measure(SfmtRandom.Create(seed2, SfmtEdition.Original_19937), N, procd, out mean);
             Console.WriteLine(fmt, "SFMT-19937", t_sfmt_org, mean);
             t_sfmt_opt = Measure(SfmtRandom.Create(seed2, SfmtEdition.Opt_19937), N, procd, out mean);
             Console.WriteLine(fmt, "SFMT-opt-19937", t_sfmt_opt, mean);
+            t_dsfmt_ptr = Measure(new DsfmtRandom<unsafe_dsfmt_t>(seed2), N, procd, out mean);
+            Console.WriteLine(fmt, "dSFMT-19937-ptr", t_dsfmt_ptr, mean);
             t_dsfmt_org = Measure(DsfmtRandom.Create(seed2, DsfmtEdition.Original_19937), N, procd, out mean);
             Console.WriteLine(fmt, "dSFMT-19937", t_dsfmt_org, mean);
             t_dsfmt_opt = Measure(DsfmtRandom.Create(seed2, DsfmtEdition.Opt_19937), N, procd, out mean);
