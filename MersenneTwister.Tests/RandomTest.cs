@@ -19,6 +19,7 @@ namespace MersenneTwister.Tests
 
         private void Test(Random rng)
         {
+            Repeat(delegate { Assert.AreEqual(0, rng.Next(0)); });
             Repeat(delegate { Assert.AreEqual(0, rng.Next(1)); });
             Repeat(delegate { Assert.IsTrue(rng.Next(2) < 2); });
             Repeat(delegate { Assert.AreEqual(0, rng.Next(0, 1)); });
@@ -28,6 +29,9 @@ namespace MersenneTwister.Tests
             Repeat(delegate { Assert.IsTrue(0 <= rng.NextDouble()); });
             Repeat(delegate { Assert.IsTrue(1 > rng.NextDouble()); });
             Repeat(delegate { Assert.IsTrue(0 <= rng.Next(int.MaxValue)); });
+            Repeat(delegate { Assert.AreEqual(-1, rng.Next(-1, -1)); });
+            Repeat(delegate { Assert.AreEqual(-1, rng.Next(-1, -0)); });
+            Repeat(delegate { Assert.AreEqual(int.MinValue, rng.Next(int.MinValue, int.MinValue + 1)); });
         }
 
         [TestMethod]

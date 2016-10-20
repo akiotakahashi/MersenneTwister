@@ -39,17 +39,20 @@ namespace MersenneTwister
 
         public override int Next(int maxValue)
         {
+            if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
             return (int)(this.gendouble() * maxValue);
         }
 
         public override int Next(int minValue, int maxValue)
         {
+            if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
             var num = (long)maxValue - minValue;
             return (int)(this.gendouble() * num) + minValue;
         }
 
         public override void NextBytes(byte[] buffer)
         {
+            if (buffer == null) { throw new ArgumentNullException(); }
             var i = 7;
             for (; i < buffer.Length; i += 8) {
                 var val = this.mt.genrand64_int64();

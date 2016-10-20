@@ -148,17 +148,20 @@ namespace MersenneTwister
 
         public override int Next(int maxValue)
         {
+            if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
             return (int)(this.dsfmt.dsfmt_genrand_close_open() * maxValue);
         }
 
         public override int Next(int minValue, int maxValue)
         {
+            if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
             var num = (long)maxValue - minValue;
             return (int)(this.dsfmt.dsfmt_genrand_close_open() * num) + minValue;
         }
 
         public override void NextBytes(byte[] buffer)
         {
+            if (buffer == null) { throw new ArgumentNullException(); }
             var i = 3;
             for (; i < buffer.Length; i += 4) {
                 var val = this.dsfmt.dsfmt_genrand_uint32();
