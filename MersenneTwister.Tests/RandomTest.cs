@@ -12,7 +12,7 @@ namespace MersenneTwister.Tests
     {
         private static void Repeat(Action action)
         {
-            for (var trial = 0; trial < 100; ++trial) {
+            for (var trial = 0; trial < 100000; ++trial) {
                 action();
             }
         }
@@ -32,6 +32,21 @@ namespace MersenneTwister.Tests
             Repeat(delegate { Assert.AreEqual(-1, rng.Next(-1, -1)); });
             Repeat(delegate { Assert.AreEqual(-1, rng.Next(-1, -0)); });
             Repeat(delegate { Assert.AreEqual(int.MinValue, rng.Next(int.MinValue, int.MinValue + 1)); });
+            var meta = Randoms.FastestInt32;
+            Repeat(delegate {
+                var n0 = meta.Next(2);
+                var n1 = meta.Next(2);
+                var n2 = meta.Next(2);
+                var nd = meta.Next(2);
+                Assert.IsTrue(n0 >= 0 && n0 <= 1);
+                Assert.IsTrue(n1 >= 0 && n1 <= 1);
+                Assert.IsTrue(n2 >= 0 && n2 <= 1);
+                Assert.IsTrue(nd >= 0 && nd <= 1);
+                if (n0 == 0) { rng.Next(); }
+                if (n1 == 0) { rng.Next(15); }
+                if (n2 == 0) { rng.Next(-19, 31); }
+                if (nd == 0) { rng.NextDouble(); }
+            });
         }
 
         [TestMethod]
