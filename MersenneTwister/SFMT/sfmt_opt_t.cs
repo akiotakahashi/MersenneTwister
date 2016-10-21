@@ -464,10 +464,9 @@ namespace MersenneTwister.SFMT
                 sfmt_gen_rand_all();
                 idx = 0;
             }
-            var r1 = (uint64_t)get32(this.state, idx);
-            var r2 = (uint64_t)get32(this.state, idx + 1);
+            var r = get64(this.state, idx >> 1);
             idx += 2;
-            return r1 | (r2 << 32);
+            return r;
         }
     }
 }
