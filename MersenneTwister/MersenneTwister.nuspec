@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MersenneTwister</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <title>Mersenne Twister</title>
     <authors>Akio Takahashi</authors>
     <licenseUrl>https://opensource.org/licenses/BSD-3-Clause</licenseUrl>
