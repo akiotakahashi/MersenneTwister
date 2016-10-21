@@ -2,7 +2,12 @@
 
 namespace MersenneTwister.MT
 {
-    public abstract class mt_base_t
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    abstract class mt_base_t
     {
         static mt_base_t()
         {

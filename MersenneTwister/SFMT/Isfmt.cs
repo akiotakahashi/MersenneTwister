@@ -5,7 +5,12 @@ using uint64_t = System.UInt64;
 
 namespace MersenneTwister.SFMT
 {
-    public interface Isfmt
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    interface Isfmt
     {
         string sfmt_get_idstring();
         int sfmt_get_min_array_size32();

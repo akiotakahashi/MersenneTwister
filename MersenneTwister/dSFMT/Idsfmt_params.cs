@@ -3,7 +3,12 @@ using System.Runtime.CompilerServices;
 
 namespace MersenneTwister.dSFMT
 {
-    public interface Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    interface Idsfmt_params
     {
         int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get; }
         int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get; }
@@ -21,7 +26,12 @@ namespace MersenneTwister.dSFMT
         string DSFMT_IDSTR { [MethodImpl(MethodImplOptions.AggressiveInlining)] get; }
     }
 
-    public struct dsfmt_params_521 : Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct dsfmt_params_521 : Idsfmt_params
     {
         public int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 521; } }
         public int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 3; } }
@@ -39,7 +49,12 @@ namespace MersenneTwister.dSFMT
         public string DSFMT_IDSTR { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return "dSFMT2-521:3-25:fbfefff77efff-ffeebfbdfbfdf"; } }
     }
 
-    public struct dsfmt_params_1279 : Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct dsfmt_params_1279 : Idsfmt_params
     {
         public int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 1279; } }
         public int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 9; } }
@@ -57,7 +72,12 @@ namespace MersenneTwister.dSFMT
         public string DSFMT_IDSTR { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return "dSFMT2-1279:9-19:efff7ffddffee-fbffffff77fff"; } }
     }
 
-    public struct dsfmt_params_2203 : Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct dsfmt_params_2203 : Idsfmt_params
     {
         public int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 2203; } }
         public int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 7; } }
@@ -75,7 +95,12 @@ namespace MersenneTwister.dSFMT
         public string DSFMT_IDSTR { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return "dSFMT2-2203:7-19:fdffff5edbfff-f77fffffffbfe"; } }
     }
 
-    public struct dsfmt_params_4253 : Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct dsfmt_params_4253 : Idsfmt_params
     {
         public int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 4253; } }
         public int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 19; } }
@@ -93,7 +118,12 @@ namespace MersenneTwister.dSFMT
         public string DSFMT_IDSTR { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return "dSFMT2-4253:19-19:7b7fffef5feff-ffdffeffefbfc"; } }
     }
 
-    public struct dsfmt_params_11213 : Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct dsfmt_params_11213 : Idsfmt_params
     {
         public int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 11213; } }
         public int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 37; } }
@@ -111,7 +141,12 @@ namespace MersenneTwister.dSFMT
         public string DSFMT_IDSTR { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return "dSFMT2-11213:37-19:ffffffdf7fffd-dfffffff6bfff"; } }
     }
 
-    public struct dsfmt_params_19937 : Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct dsfmt_params_19937 : Idsfmt_params
     {
         public int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 19937; } }
         public int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 117; } }
@@ -129,7 +164,12 @@ namespace MersenneTwister.dSFMT
         public string DSFMT_IDSTR { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return "dSFMT2-19937:117-19:ffafffffffb3f-ffdfffc90fffd"; } }
     }
 
-    public struct dsfmt_params_44497 : Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct dsfmt_params_44497 : Idsfmt_params
     {
         public int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 44497; } }
         public int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 304; } }
@@ -147,7 +187,12 @@ namespace MersenneTwister.dSFMT
         public string DSFMT_IDSTR { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return "dSFMT2-44497:304-19:ff6dfffffffef-7ffdddeefff6f"; } }
     }
 
-    public struct dsfmt_params_86243 : Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct dsfmt_params_86243 : Idsfmt_params
     {
         public int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 86243; } }
         public int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 231; } }
@@ -165,7 +210,12 @@ namespace MersenneTwister.dSFMT
         public string DSFMT_IDSTR { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return "dSFMT2-86243:231-13:ffedff6ffffdf-ffff7fdffff7e"; } }
     }
 
-    public struct dsfmt_params_132049 : Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct dsfmt_params_132049 : Idsfmt_params
     {
         public int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 132049; } }
         public int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 371; } }
@@ -183,7 +233,12 @@ namespace MersenneTwister.dSFMT
         public string DSFMT_IDSTR { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return "dSFMT2-132049:371-23:fb9f4eff4bf77-fffffbfefff37"; } }
     }
 
-    public struct dsfmt_params_216091 : Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct dsfmt_params_216091 : Idsfmt_params
     {
         public int DSFMT_MEXP { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 216091; } }
         public int DSFMT_POS1 { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return 1890; } }

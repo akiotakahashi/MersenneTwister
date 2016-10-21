@@ -64,7 +64,12 @@ namespace MersenneTwister
         }
     }
 
-    internal sealed class MTRandom<T> : MTRandom where T : Imt19937, new()
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    sealed class MTRandom<T> : MTRandom where T : Imt19937, new()
     {
         private readonly T mt = new T();
 

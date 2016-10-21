@@ -6,7 +6,12 @@ using uint64_t = System.UInt64;
 
 namespace MersenneTwister.dSFMT
 {
-    public sealed class dsfmt_opt_t : dsfmt_t_params, Idsfmt
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    sealed class dsfmt_opt_t : dsfmt_t_params, Idsfmt
     {
         private const int DSFMT_N_2 = DSFMT_N * 2;
         private const int DSFMT_POS1_2 = DSFMT_POS1 * 2;

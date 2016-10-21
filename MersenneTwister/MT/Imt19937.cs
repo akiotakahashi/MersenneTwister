@@ -2,7 +2,12 @@
 
 namespace MersenneTwister.MT
 {
-    public interface Imt19937
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    interface Imt19937
     {
         void init_genrand(uint s);
         void init_by_array(uint[] init_key, int key_length);

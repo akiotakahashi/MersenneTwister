@@ -6,7 +6,12 @@ using uint64_t = System.UInt64;
 
 namespace MersenneTwister.dSFMT
 {
-    public sealed class dsfmt_opt_gen_t<P> : SFMT.sfmt_base_t, Idsfmt where P : struct, Idsfmt_params
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    sealed class dsfmt_opt_gen_t<P> : SFMT.sfmt_base_t, Idsfmt where P : struct, Idsfmt_params
     {
         private const ulong DSFMT_LOW_MASK = 0x000FFFFFFFFFFFFFUL;
         private const ulong DSFMT_HIGH_CONST = 0x3FF0000000000000UL;

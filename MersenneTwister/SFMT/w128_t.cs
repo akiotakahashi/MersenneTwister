@@ -8,7 +8,12 @@ using uint64_t = System.UInt64;
 namespace MersenneTwister.SFMT
 {
     [StructLayout(LayoutKind.Explicit, Size = 16)]
-    public struct w128_t
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    struct w128_t
     {
         [FieldOffset(0)]
         public uint32_t u32_0;

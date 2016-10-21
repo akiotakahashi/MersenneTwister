@@ -118,7 +118,12 @@ namespace MersenneTwister
         }
     }
 
-    internal sealed class DsfmtRandom<T> : MTRandom where T : Idsfmt, new()
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    sealed class DsfmtRandom<T> : MTRandom where T : Idsfmt, new()
     {
         private readonly T dsfmt = new T();
 

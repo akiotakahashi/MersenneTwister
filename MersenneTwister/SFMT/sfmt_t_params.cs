@@ -3,7 +3,12 @@ using System;
 
 namespace MersenneTwister.SFMT
 {
-    public abstract class sfmt_t_params : sfmt_base_t
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    abstract class sfmt_t_params : sfmt_base_t
     {
         /** SFMT generator has an internal state array of 128-bit integers,
 		 * and N is its size. */

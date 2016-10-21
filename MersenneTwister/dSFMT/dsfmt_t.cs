@@ -7,7 +7,12 @@ using uint64_t = System.UInt64;
 
 namespace MersenneTwister.dSFMT
 {
-    public sealed class dsfmt_t : dsfmt_t_params, Idsfmt
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    sealed class dsfmt_t : dsfmt_t_params, Idsfmt
     {
         private w128_t[] status = new w128_t[DSFMT_N + 1];
         private int idx;

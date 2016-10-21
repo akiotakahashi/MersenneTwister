@@ -25,7 +25,12 @@ using uint64_t = System.UInt64;
 
 namespace MersenneTwister.SFMT
 {
-    public sealed class sfmt_opt_t : sfmt_t_params, Isfmt
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    sealed class sfmt_opt_t : sfmt_t_params, Isfmt
     {
         private static readonly uint32_t[] parity = new[] { SFMT_PARITY1, SFMT_PARITY2, SFMT_PARITY3, SFMT_PARITY4 };
 

@@ -3,7 +3,12 @@ using System;
 
 namespace MersenneTwister.dSFMT
 {
-    public abstract class dsfmt_t_params : SFMT.sfmt_base_t
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    abstract class dsfmt_t_params : SFMT.sfmt_base_t
     {
         protected const ulong DSFMT_LOW_MASK = 0x000FFFFFFFFFFFFFUL;
         protected const ulong DSFMT_HIGH_CONST = 0x3FF0000000000000UL;

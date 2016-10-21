@@ -3,7 +3,12 @@ using System.Runtime.CompilerServices;
 
 namespace MersenneTwister
 {
-    public static class BitScanner
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    static class BitScanner
     {
         public static uint Mask(uint b)
         {

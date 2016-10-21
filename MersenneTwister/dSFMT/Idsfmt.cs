@@ -5,7 +5,12 @@ using uint64_t = System.UInt64;
 
 namespace MersenneTwister.dSFMT
 {
-    public interface Idsfmt
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    interface Idsfmt
     {
         int MEXP { get; }
         int DSFMT_N { get; }

@@ -6,7 +6,12 @@ using uint64_t = System.UInt64;
 
 namespace MersenneTwister.SFMT
 {
-    public abstract class sfmt_base_t : MT.mt_base_t
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    abstract class sfmt_base_t : MT.mt_base_t
     {
         [System.Diagnostics.Conditional("DEBUG")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
