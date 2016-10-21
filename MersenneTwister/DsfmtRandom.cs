@@ -8,17 +8,17 @@ namespace MersenneTwister
     {
         public static Random Create()
         {
-            return Create(DsfmtEdition.Original_19937);
+            return Create(DsfmtEdition.Opt_19937);
         }
 
         public static Random Create(int seed)
         {
-            return Create(seed, DsfmtEdition.Original_19937);
+            return Create(seed, DsfmtEdition.Opt_19937);
         }
 
         public static Random Create(uint[] seed)
         {
-            return Create(seed, DsfmtEdition.Original_19937);
+            return Create(seed, DsfmtEdition.Opt_19937);
         }
 
         public static Random Create(DsfmtEdition edition)
