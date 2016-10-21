@@ -82,6 +82,7 @@ namespace MersenneTwister.MT
         /* initializes mt[NN] with a seed */
         public void init_genrand64(uint64_t seed)
         {
+            var mt = this.mt;
             mt[0] = seed;
             for (mti = 1; mti < NN; mti++) {
                 mt[mti] = (6364136223846793005UL * (mt[mti - 1] ^ (mt[mti - 1] >> 62)) + mti);
@@ -93,6 +94,7 @@ namespace MersenneTwister.MT
         /* key_length is its length */
         public void init_by_array64(uint64_t[] init_key, uint64_t key_length)
         {
+            var mt = this.mt;
             uint i, j;
             uint64_t k;
             init_genrand64(19650218UL);
@@ -122,6 +124,7 @@ namespace MersenneTwister.MT
         /* generates a random number on [0, 2^64-1]-interval */
         public uint64_t genrand64_int64()
         {
+            var mt = this.mt;
             int i;
             uint64_t x;
 
@@ -135,14 +138,14 @@ namespace MersenneTwister.MT
 
                 for (i = 0; i < NN - MM; i++) {
                     x = (mt[i] & UM) | (mt[i + 1] & LM);
-                    mt[i] = mt[i + MM] ^ (x >> 1) ^ mag01[(int)(x & 1UL)];
+                    mt[i] = mt[i + MM] ^ (x >> 1) ^ mag01[(uint)x & 1];
                 }
                 for (; i < NN - 1; i++) {
                     x = (mt[i] & UM) | (mt[i + 1] & LM);
-                    mt[i] = mt[i + (MM - NN)] ^ (x >> 1) ^ mag01[(int)(x & 1UL)];
+                    mt[i] = mt[i + (MM - NN)] ^ (x >> 1) ^ mag01[(uint)x & 1];
                 }
                 x = (mt[NN - 1] & UM) | (mt[0] & LM);
-                mt[NN - 1] = mt[MM - 1] ^ (x >> 1) ^ mag01[(int)(x & 1UL)];
+                mt[NN - 1] = mt[MM - 1] ^ (x >> 1) ^ mag01[(uint)x & 1];
 
                 mti = 0;
             }
