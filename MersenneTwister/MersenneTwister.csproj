@@ -78,6 +78,7 @@
     <Compile Include="MTRandom.cs" />
     <Compile Include="MT\mt_base_t.cs" />
     <Compile Include="PreciseRandom.cs" />
+    <Compile Include="Randoms.cs" />
     <Compile Include="SeedUtil.cs" />
     <Compile Include="SfmtEdition.cs" />
     <Compile Include="SfmtRandom.cs" />
