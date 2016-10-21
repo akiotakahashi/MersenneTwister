@@ -243,6 +243,38 @@ namespace MersenneTwister.Benchmark
             return x;
         }
 
+        private static long Next1<T>(T rng) where T : Random
+        {
+            var x = 0L;
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            return x;
+        }
+
+        private static long Next2<T>(T rng) where T : Random
+        {
+            var x = 0L;
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            x += rng.Next(100);
+            return x;
+        }
+
         private static double NextDouble<T>(T rng) where T : Random
         {
             var x = 0d;
