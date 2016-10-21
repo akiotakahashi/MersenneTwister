@@ -44,8 +44,10 @@ namespace MersenneTwister.Benchmark
             Console.WriteLine(fmt, "MT19937-cok", t_mt32_cok, mean);
             var t_mt32_opt = Measure(MTRandom.Create(seed1, MTEdition.CokOpt_19937), N, proci, out mean);
             Console.WriteLine(fmt, "MT19937-cok-opt", t_mt32_opt, mean);
-            var t_mt64 = Measure(new MT64Random(seed1), N, proci, out mean);
-            Console.WriteLine(fmt, "MT64-19937", t_mt64, mean);
+            var t_mt64_org = Measure(MT64Random.Create(seed1, MT64Edition.Original_19937), N, proci, out mean);
+            Console.WriteLine(fmt, "MT64-19937", t_mt64_org, mean);
+            var t_mt64_opt = Measure(MT64Random.Create(seed1, MT64Edition.Opt_19937), N, proci, out mean);
+            Console.WriteLine(fmt, "MT64-19937-opt", t_mt64_opt, mean);
             var t_sfmt_ptr = Measure(new SfmtRandom<unsafe_sfmt_t>(seed1), N, proci, out mean);
             Console.WriteLine(fmt, "SFMT-19937-ptr", t_sfmt_ptr, mean);
             var t_sfmt_org = Measure(SfmtRandom.Create(seed1, SfmtEdition.Original_19937), N, proci, out mean);
@@ -102,8 +104,10 @@ namespace MersenneTwister.Benchmark
             Console.WriteLine(fmt, "MT19937-cok", t_mt32_cok, mean);
             t_mt32_opt = Measure(MTRandom.Create(seed2, MTEdition.CokOpt_19937), N, procd, out mean);
             Console.WriteLine(fmt, "MT19937-cok-opt", t_mt32_opt, mean);
-            t_mt64 = Measure(new MT64Random(), N, procd, out mean);
-            Console.WriteLine(fmt, "MT64-19937", t_mt64, mean);
+            t_mt64_org = Measure(MT64Random.Create(seed1, MT64Edition.Original_19937), N, procd, out mean);
+            Console.WriteLine(fmt, "MT64-19937", t_mt64_org, mean);
+            t_mt64_opt = Measure(MT64Random.Create(seed1, MT64Edition.Opt_19937), N, procd, out mean);
+            Console.WriteLine(fmt, "MT64-19937-opt", t_mt64_opt, mean);
             t_sfmt_ptr = Measure(new SfmtRandom<unsafe_sfmt_t>(seed2), N, procd, out mean);
             Console.WriteLine(fmt, "SFMT-19937-ptr", t_sfmt_org, mean);
             t_sfmt_org = Measure(SfmtRandom.Create(seed2, SfmtEdition.Original_19937), N, procd, out mean);
