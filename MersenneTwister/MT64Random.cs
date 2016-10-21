@@ -8,17 +8,17 @@ namespace MersenneTwister
     {
         public static Random Create()
         {
-            return Create(MT64Edition.Opt_19937);
+            return Create(MT64Edition.Original_19937);
         }
 
         public static Random Create(int seed)
         {
-            return Create(seed, MT64Edition.Opt_19937);
+            return Create(seed, MT64Edition.Original_19937);
         }
 
         public static Random Create(ulong[] seed)
         {
-            return Create(seed, MT64Edition.Opt_19937);
+            return Create(seed, MT64Edition.Original_19937);
         }
 
         public static Random Create(MT64Edition edition)
