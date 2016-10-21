@@ -73,16 +73,25 @@ namespace MersenneTwister.dSFMT
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static void do_recursion(ref uint64_t a0, ref uint64_t a1, uint64_t b0, uint64_t b1, ref uint64_t lung0, ref uint64_t lung1)
+        static int do_recursion(uint64_t[] r, int ai, int bi, ref uint64_t lung0, ref uint64_t lung1)
         {
-            var t0 = a0;
-            var t1 = a1;
-            var L0 = lung0;
-            var L1 = lung1;
-            lung0 = (t0 << DSFMT_SL1) ^ (L1 >> 32) ^ (L1 << 32) ^ b0;
-            lung1 = (t1 << DSFMT_SL1) ^ (L0 >> 32) ^ (L0 << 32) ^ b1;
-            a0 = (lung0 >> DSFMT_SR) ^ (lung0 & DSFMT_MSK1) ^ t0;
-            a1 = (lung1 >> DSFMT_SR) ^ (lung1 & DSFMT_MSK2) ^ t1;
+            uint64_t t0;
+            uint64_t t1;
+            uint64_t L0;
+            uint64_t L1;
+            L0 = lung0;
+            L1 = lung1;
+            lung0 = ((t0 = r[ai + 0]) << DSFMT_SL1) ^ (L1 >> 32) ^ (L1 << 32) ^ r[ai + (bi + (0 + DSFMT_POS1_2))];
+            lung1 = ((t1 = r[ai + 1]) << DSFMT_SL1) ^ (L0 >> 32) ^ (L0 << 32) ^ r[ai + (bi + (1 + DSFMT_POS1_2))];
+            r[ai + 0] = (lung0 >> DSFMT_SR) ^ (lung0 & DSFMT_MSK1) ^ t0;
+            r[ai + 1] = (lung1 >> DSFMT_SR) ^ (lung1 & DSFMT_MSK2) ^ t1;
+            L0 = lung0;
+            L1 = lung1;
+            lung0 = ((t0 = r[ai + 2]) << DSFMT_SL1) ^ (L1 >> 32) ^ (L1 << 32) ^ r[ai + (bi + (2 + DSFMT_POS1_2))];
+            lung1 = ((t1 = r[ai + 3]) << DSFMT_SL1) ^ (L0 >> 32) ^ (L0 << 32) ^ r[ai + (bi + (3 + DSFMT_POS1_2))];
+            r[ai + 2] = (lung0 >> DSFMT_SR) ^ (lung0 & DSFMT_MSK1) ^ t0;
+            r[ai + 3] = (lung1 >> DSFMT_SR) ^ (lung1 & DSFMT_MSK2) ^ t1;
+            return 4;
         }
 
         /**
@@ -389,17 +398,20 @@ namespace MersenneTwister.dSFMT
         void dsfmt_gen_rand_all()
         {
             var status = this.status;
-            int i;
-            var lung0 = status[DSFMT_N_2];
+            var lung0 = status[DSFMT_N_2 + 0];
             var lung1 = status[DSFMT_N_2 + 1];
-            do_recursion(ref status[0], ref status[1], status[DSFMT_POS1_2], status[DSFMT_POS1_2 + 1], ref lung0, ref lung1);
-            for (i = 2; i < DSFMT_N_2 - DSFMT_POS1_2; i += 2) {
-                do_recursion(ref status[i], ref status[i + 1], status[i + DSFMT_POS1_2], status[i + (DSFMT_POS1_2 + 1)], ref lung0, ref lung1);
+            int i = 0;
+            for (; i < ((DSFMT_N_2 - DSFMT_POS1_2) & ~3);) {
+                i += do_recursion(status, i, 0, ref lung0, ref lung1);
             }
-            for (; i < DSFMT_N_2; i += 2) {
-                do_recursion(ref status[i], ref status[i + 1], status[i + DSFMT_POS1_2_sub_DSFMT_N_2], status[i + (DSFMT_POS1_2_sub_DSFMT_N_2 + 1)], ref lung0, ref lung1);
+            for (; i < (DSFMT_N_2 & ~3);) {
+                i += do_recursion(status, i, -DSFMT_N_2, ref lung0, ref lung1);
             }
-            status[DSFMT_N_2] = lung0;
+            if ((DSFMT_N_2 & 2) != 0) {
+                do_recursion(status, i, status, i, status, i + DSFMT_POS1_2_sub_DSFMT_N_2, ref lung0, ref lung1);
+                i += 2;
+            }
+            status[DSFMT_N_2 + 0] = lung0;
             status[DSFMT_N_2 + 1] = lung1;
         }
 
