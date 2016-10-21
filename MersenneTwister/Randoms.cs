@@ -10,20 +10,6 @@ namespace MersenneTwister
         private static readonly ThreadLocal<Random> fastestInt32 = new ThreadLocal<Random>(() => Create(RandomType.FastestInt32), false);
         private static readonly ThreadLocal<Random> fastestDouble = new ThreadLocal<Random>(() => Create(RandomType.FastestDouble), false);
 
-        public static Random Create(RandomType type = RandomType.WellBalanced)
-        {
-            switch (type) {
-            case RandomType.WellBalanced:
-                return DsfmtRandom.Create();
-            case RandomType.FastestInt32:
-                return MT64Random.Create();
-            case RandomType.FastestDouble:
-                return DsfmtRandom.Create();
-            default:
-                throw new ArgumentException();
-            }
-        }
-
         public static Random WellBalanced {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get {
@@ -42,6 +28,34 @@ namespace MersenneTwister
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get {
                 return fastestDouble.Value;
+            }
+        }
+
+        public static Random Create(RandomType type = RandomType.WellBalanced)
+        {
+            switch (type) {
+            case RandomType.WellBalanced:
+                return DsfmtRandom.Create();
+            case RandomType.FastestInt32:
+                return MT64Random.Create();
+            case RandomType.FastestDouble:
+                return DsfmtRandom.Create();
+            default:
+                throw new ArgumentException();
+            }
+        }
+
+        public static Random Create(int seed, RandomType type = RandomType.WellBalanced)
+        {
+            switch (type) {
+            case RandomType.WellBalanced:
+                return DsfmtRandom.Create(seed);
+            case RandomType.FastestInt32:
+                return MT64Random.Create(seed);
+            case RandomType.FastestDouble:
+                return DsfmtRandom.Create(seed);
+            default:
+                throw new ArgumentException();
             }
         }
     }
