@@ -67,6 +67,8 @@ namespace MersenneTwister
     {
         private readonly T mt = new T();
 
+        private int stock = -1;
+
         public MT64Random()
         {
             var seed = SeedUtil.GenerateSeed();
@@ -93,7 +95,14 @@ namespace MersenneTwister
 
         public override int Next()
         {
-            return (int)(this.mt.genrand64_int64() >> 33);
+            if (stock >= 0) {
+                var val = this.stock;
+                this.stock = -1;
+                return val;
+            }
+            var r = this.mt.genrand64_int64();
+            this.stock = (int)(r >> 33);
+            return (int)r & 0x7FFFFFFF;
         }
 
         public override int Next(int maxValue)
