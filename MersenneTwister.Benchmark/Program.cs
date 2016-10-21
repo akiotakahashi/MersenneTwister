@@ -190,7 +190,7 @@ namespace MersenneTwister.Benchmark
         private static double ToDouble(byte[] buf, int index)
         {
             var x = ToUInt64(buf, index);
-            return (x >> 11) * (1.0 / (1UL << 53));
+            return x * (1.0 / 18446744073709551616.0);
         }
 
         private static double Measure<T>(T rng, int N, Func<T, long> proc, out double mean)

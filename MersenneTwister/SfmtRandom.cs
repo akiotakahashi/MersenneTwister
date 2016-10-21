@@ -142,7 +142,7 @@ namespace MersenneTwister
         private double gendouble()
         {
             var x = this.sfmt.sfmt_genrand_uint64();
-            return (x >> 11) * (1.0 / (1UL << 53));
+            return x * (1.0 / 18446744073709551616.0);
         }
     }
 }

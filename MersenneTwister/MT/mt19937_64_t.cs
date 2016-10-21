@@ -193,7 +193,7 @@ namespace MersenneTwister.MT
         public double genrand64_res53()
         {
             ulong x = genrand64_int64();
-            return (x >> 11) * (1.0 / 9007199254740992.0);
+            return x * (1.0 / 18446744073709551616.0);
         }
     }
 }
