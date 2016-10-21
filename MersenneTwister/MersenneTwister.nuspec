@@ -13,23 +13,29 @@
     <description>This portable class library provides Mersenne Twister PRNGs;
 
 Mersenne Twister (MT):
-- MT19937ar, MT19937ar-cok, MT19937-64
-- MT19937ar-cok-opt (.NET optimized)
+- MT19937ar, MT19937ar-cok, MT19937ar-cok-opt
+- MT19937-64, MT19937-64-opt
 
 SIMD-oriented Fast MT (SFMT):
-- SFMT-19937
-- SFMT-opt-19937 (.NET optimized)
+- SFMT-19937, SFMT-opt-19937
 
 Double precision SFMT (dSFMT):
-- dSFMT-19937
-- dSFMT-opt-19937 (.NET optimized)
+- dSFMT-19937, dSFMT-opt-19937
 - dSFMT-opt-gen-* (Generics version for many Mersenne Exponents)
 -- 521, 1279, 2203, 4253, 11213, 19937, 44497, 86243, 132049, 216091
 
-You can use any PRNG via a corresponding System.Random derived wrapping class for easy use:
+You can use any PRNG via a corresponding System.Random derived wrapping class:
 - MTRandom
+- MT64Random
 - SfmtRandom
 - DsfmtRandom
+
+and also we provide Randoms class for convenience that has;
+- Create(RandomType type) to get the suitable implementaiton such as fastest for Random.Next()
+- Thread-local default object propreties:
+-- WellBalanced for general purpose
+-- FastestInt32 for Random.Next()
+-- FastestDouble for Random.Next(int) or Next(int,int) or NextDouble()
 
 Further more, PreciseRandom class provides accuracy results of Random.Next(int maxValue) and Next(int minValue, int maxValue).</description>
     <releaseNotes>Initial release.</releaseNotes>
