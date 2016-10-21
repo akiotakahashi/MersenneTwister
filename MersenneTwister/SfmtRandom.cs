@@ -87,9 +87,7 @@ namespace MersenneTwister
         private double gendouble()
         {
             var x = this.sfmt.sfmt_genrand_uint64();
-            var a = ((uint)x) >> 5;
-            var b = (uint)(x >> 38);
-            return (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
+            return (x >> 11) * (1.0 / (1UL << 53));
         }
 
         public override int Next()

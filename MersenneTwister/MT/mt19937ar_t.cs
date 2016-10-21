@@ -182,14 +182,15 @@ namespace MersenneTwister.MT
             return (genrand_int32() + 0.5) * (1.0 / 4294967296.0);
             /* divided by 2^32 */
         }
+        /* These real versions are due to Isaku Wada, 2002/01/09 added */
 
         /* generates a random number on [0,1) with 53-bit resolution*/
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double genrand_res53()
         {
-            uint a = genrand_int32() >> 5, b = genrand_int32() >> 6;
-            return (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
+            uint a = genrand_int32();
+            uint b = genrand_int32();
+            return ((a << 21) ^ b) * (1.0 / (1UL << 53));
         }
-        /* These real versions are due to Isaku Wada, 2002/01/09 added */
     }
 }
