@@ -15,6 +15,18 @@ namespace MersenneTwister
             this.rng = baseRandom;
         }
 
+        public PreciseRandom() : this(MT64Random.Create())
+        {
+        }
+
+        public PreciseRandom(int seed) : this(MT64Random.Create(seed))
+        {
+        }
+
+        public PreciseRandom(ulong[] seed) : this(MT64Random.Create(seed))
+        {
+        }
+
         public override int Next()
         {
             return base.Next();
