@@ -14,7 +14,11 @@ namespace MersenneTwister.Tests
         [TestMethod]
         public void MersenneTwister_MT19937_64()
         {
-            var mt = new mt19937_64_t();
+            Test(new mt19937_64_t());
+        }
+
+        private void Test<T>(T mt) where T : Imt19937_64
+        {
             var init = new[] { 0x12345UL, 0x23456UL, 0x34567UL, 0x45678UL };
             mt.init_by_array64(init, (uint)init.Length);
             printf("1000 outputs of genrand64_int64()\n");

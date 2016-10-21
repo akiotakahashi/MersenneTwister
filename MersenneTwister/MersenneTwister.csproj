@@ -67,6 +67,7 @@
     <Compile Include="dSFMT\Idsfmt_params.cs" />
     <Compile Include="MTEdition.cs" />
     <Compile Include="MT\Imt19937.cs" />
+    <Compile Include="MT\Imt19937_64.cs" />
     <Compile Include="MT\mt19937ar_cok_opt_t.cs" />
     <Compile Include="MT\mt19937ar_cok_t.cs" />
     <Compile Include="MT\mt19937_64_t.cs" />

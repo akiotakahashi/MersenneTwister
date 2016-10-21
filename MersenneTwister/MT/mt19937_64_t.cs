@@ -66,7 +66,7 @@ namespace MersenneTwister.MT
 #else
     internal
 #endif
-    sealed class mt19937_64_t : mt_base_t
+    sealed class mt19937_64_t : mt_base_t, Imt19937_64
     {
         private const int NN = 312;
         private const int MM = 156;
