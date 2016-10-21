@@ -463,7 +463,9 @@ namespace MersenneTwister.SFMT
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public uint64_t sfmt_genrand_uint64()
         {
-            assert(idx % 2 == 0);
+            if ((idx & 1) != 0) {
+                ++idx;
+            }
             if (idx >= SFMT_N32) {
                 sfmt_gen_rand_all();
                 idx = 0;
