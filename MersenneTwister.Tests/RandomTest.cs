@@ -43,6 +43,13 @@ namespace MersenneTwister.Tests
         }
 
         [TestMethod]
+        public void Random_MT64()
+        {
+            Test(MT64Random.Create(MT64Edition.Original_19937));
+            Test(MT64Random.Create(MT64Edition.Opt_19937));
+        }
+
+        [TestMethod]
         public void Random_SFMT()
         {
             Test(SfmtRandom.Create(SfmtEdition.Original_19937));

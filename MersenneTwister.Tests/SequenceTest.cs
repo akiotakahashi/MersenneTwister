@@ -36,6 +36,13 @@ namespace MersenneTwister.Tests
         }
 
         [TestMethod]
+        public void Sequence_MT64()
+        {
+            var seed = Environment.TickCount;
+            Test(MT64Random.Create(seed, MT64Edition.Original_19937), MT64Random.Create(seed, MT64Edition.Opt_19937));
+        }
+
+        [TestMethod]
         public void Sequence_SFMT()
         {
             var seed = Environment.TickCount;
