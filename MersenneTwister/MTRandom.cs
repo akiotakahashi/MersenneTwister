@@ -89,12 +89,6 @@ namespace MersenneTwister
             this.mt.init_by_array(seed, seed.Length);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private double gendouble()
-        {
-            return this.mt.genrand_res53();
-        }
-
         public override int Next()
         {
             return this.mt.genrand_int31();
@@ -103,14 +97,16 @@ namespace MersenneTwister
         public override int Next(int maxValue)
         {
             if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
-            return (int)(this.gendouble() * maxValue);
+            var r = this.mt.genrand_int32();
+            return (int)(((ulong)maxValue * r) >> 32);
         }
 
         public override int Next(int minValue, int maxValue)
         {
             if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
-            var num = (long)maxValue - minValue;
-            return (int)(this.gendouble() * num) + minValue;
+            var num = (ulong)((long)maxValue - minValue);
+            var r = this.mt.genrand_int32();
+            return (int)((num * r) >> 32) + minValue;
         }
 
         public override void NextBytes(byte[] buffer)
@@ -136,12 +132,12 @@ namespace MersenneTwister
 
         public override double NextDouble()
         {
-            return this.gendouble();
+            return this.mt.genrand_res53();
         }
 
         protected override double Sample()
         {
-            return this.gendouble();
+            return this.mt.genrand_res53();
         }
     }
 }

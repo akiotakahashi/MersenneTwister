@@ -87,12 +87,6 @@ namespace MersenneTwister
             this.mt.init_by_array64(seed, (uint)seed.Length);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private double gendouble()
-        {
-            return this.mt.genrand64_res53();
-        }
-
         public override int Next()
         {
             if (stock >= 0) {
@@ -105,17 +99,36 @@ namespace MersenneTwister
             return (int)r & 0x7FFFFFFF;
         }
 
+        private bool sflag32;
+        private uint stock32;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private uint genrand32_uint32()
+        {
+            if (sflag32) {
+                var val = this.stock32;
+                this.sflag32 = false;
+                return val;
+            }
+            var r = this.mt.genrand64_int64();
+            this.stock32 = (uint)(r >> 32);
+            this.sflag32 = true;
+            return (uint)r;
+        }
+
         public override int Next(int maxValue)
         {
             if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
-            return (int)(this.gendouble() * maxValue);
+            var r = this.genrand32_uint32();
+            return (int)(((ulong)maxValue * r) >> 32);
         }
 
         public override int Next(int minValue, int maxValue)
         {
             if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
-            var num = (long)maxValue - minValue;
-            return (int)(this.gendouble() * num) + minValue;
+            var num = (ulong)((long)maxValue - minValue);
+            var r = this.genrand32_uint32();
+            return (int)((num * r) >> 32) + minValue;
         }
 
         public override void NextBytes(byte[] buffer)
@@ -145,12 +158,12 @@ namespace MersenneTwister
 
         public override double NextDouble()
         {
-            return this.gendouble();
+            return this.mt.genrand64_res53();
         }
 
         protected override double Sample()
         {
-            return this.gendouble();
+            return this.mt.genrand64_res53();
         }
     }
 }

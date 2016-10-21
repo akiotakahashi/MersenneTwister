@@ -83,13 +83,6 @@ namespace MersenneTwister
             this.sfmt.sfmt_init_by_array(seed);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private double gendouble()
-        {
-            var x = this.sfmt.sfmt_genrand_uint64();
-            return (x >> 11) * (1.0 / (1UL << 53));
-        }
-
         public override int Next()
         {
             return (int)(this.sfmt.sfmt_genrand_uint32() >> 1);
@@ -98,14 +91,16 @@ namespace MersenneTwister
         public override int Next(int maxValue)
         {
             if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
-            return (int)(this.gendouble() * maxValue);
+            var r = this.sfmt.sfmt_genrand_uint32();
+            return (int)(((ulong)maxValue * r) >> 32);
         }
 
         public override int Next(int minValue, int maxValue)
         {
             if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
-            var num = (long)maxValue - minValue;
-            return (int)(this.gendouble() * num) + minValue;
+            var num = (ulong)((long)maxValue - minValue);
+            var r = this.sfmt.sfmt_genrand_uint32();
+            return (int)((num * r) >> 32) + minValue;
         }
 
         public override void NextBytes(byte[] buffer)
@@ -141,6 +136,13 @@ namespace MersenneTwister
         protected override double Sample()
         {
             return this.gendouble();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private double gendouble()
+        {
+            var x = this.sfmt.sfmt_genrand_uint64();
+            return (x >> 11) * (1.0 / (1UL << 53));
         }
     }
 }
