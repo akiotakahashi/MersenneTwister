@@ -49,5 +49,6 @@ Further more, AccurateRandom class provides accurate results of Random.Next(int 
     <file src="bin\Release\*.dll" target="lib\netstandard1.0" />
     <file src="bin\Release\*.dll" target="lib\netcoreapp1.0" />
     <file src="..\nuget\LICENSES-MersenneTwister.txt" target="content" />
+    <file src="README.txt" target="" />
   </files>
 </package>

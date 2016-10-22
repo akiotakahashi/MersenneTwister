@@ -54,6 +54,7 @@
     <Content Include="LICENSE-mt19937ar-cok.txt" />
     <Content Include="LICENSE-mt19937ar.txt" />
     <Content Include="LICENSE-SFMT-1.4.1.txt" />
+    <Content Include="README.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitScanner.cs" />
