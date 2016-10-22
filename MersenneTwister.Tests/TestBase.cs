@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MersenneTwister.Tests
 {
+    [TestClass]
     public abstract class TestBase
     {
         private readonly StringBuilder stdout = new StringBuilder();
