@@ -89,9 +89,9 @@ namespace MersenneTwister.Tests
         }
 
         [TestMethod]
-        public void Random_Precise()
+        public void Random_Accurate()
         {
-            Test(new PreciseRandom(new Random()));
+            Test(new AccurateRandom(new Random()));
         }
     }
 }

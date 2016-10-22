@@ -3,27 +3,27 @@ using System.Runtime.CompilerServices;
 
 namespace MersenneTwister
 {
-    public class PreciseRandom : Random
+    public class AccurateRandom : Random
     {
         private readonly Random rng;
 
         private int cachedMaxValue = -1;
         private int cachedValueMask = -1;
 
-        public PreciseRandom(Random baseRandom)
+        public AccurateRandom(Random baseRandom)
         {
             this.rng = baseRandom;
         }
 
-        public PreciseRandom() : this(MT64Random.Create())
+        public AccurateRandom() : this(MT64Random.Create())
         {
         }
 
-        public PreciseRandom(int seed) : this(MT64Random.Create(seed))
+        public AccurateRandom(int seed) : this(MT64Random.Create(seed))
         {
         }
 
-        public PreciseRandom(ulong[] seed) : this(MT64Random.Create(seed))
+        public AccurateRandom(ulong[] seed) : this(MT64Random.Create(seed))
         {
         }
 

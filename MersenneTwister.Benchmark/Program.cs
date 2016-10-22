@@ -62,8 +62,8 @@ namespace MersenneTwister.Benchmark
             Console.WriteLine(fmt, "dSFMT-opt-19937", t_dsfmt_opt, mean);
             var t_dsfmt_gen = Measure(DsfmtRandom.Create(seed1, DsfmtEdition.OptGen_19937), N, proci, out mean);
             Console.WriteLine(fmt, "dSFMT-opt-gen-19937", t_dsfmt_gen, mean);
-            var t_precise = Measure(new PreciseRandom(DsfmtRandom.Create(seed1, DsfmtEdition.Opt_19937)), N, proci, out mean);
-            Console.WriteLine(fmt, "presice+dSFMT-opt-19937", t_precise, mean);
+            var t_accurate = Measure(new AccurateRandom(DsfmtRandom.Create(seed1, DsfmtEdition.Opt_19937)), N, proci, out mean);
+            Console.WriteLine(fmt, "accurate+dSFMT-opt-19937", t_accurate, mean);
             t_dsfmt_gen = Measure(DsfmtRandom.Create(seed1, DsfmtEdition.OptGen_521), N, proci, out mean);
             Console.WriteLine(fmt, "dSFMT-opt-gen-521", t_dsfmt_gen, mean);
             t_dsfmt_gen = Measure(DsfmtRandom.Create(seed1, DsfmtEdition.OptGen_216091), N, proci, out mean);
@@ -122,8 +122,8 @@ namespace MersenneTwister.Benchmark
             Console.WriteLine(fmt, "dSFMT-opt-19937", t_dsfmt_opt, mean);
             t_dsfmt_gen = Measure(DsfmtRandom.Create(seed2, DsfmtEdition.OptGen_19937), N, procd, out mean);
             Console.WriteLine(fmt, "dSFMT-opt-gen-19937", t_dsfmt_gen, mean);
-            t_precise = Measure(new PreciseRandom(DsfmtRandom.Create(seed2, DsfmtEdition.Opt_19937)), N, procd, out mean);
-            Console.WriteLine(fmt, "presice+dSFMT-opt-19937", t_precise, mean);
+            t_accurate = Measure(new AccurateRandom(DsfmtRandom.Create(seed2, DsfmtEdition.Opt_19937)), N, procd, out mean);
+            Console.WriteLine(fmt, "accurate+dSFMT-opt-19937", t_accurate, mean);
             t_dsfmt_gen = Measure(DsfmtRandom.Create(seed2, DsfmtEdition.OptGen_521), N, procd, out mean);
             Console.WriteLine(fmt, "dSFMT-opt-gen-521", t_dsfmt_gen, mean);
             t_dsfmt_gen = Measure(DsfmtRandom.Create(seed2, DsfmtEdition.OptGen_216091), N, procd, out mean);
