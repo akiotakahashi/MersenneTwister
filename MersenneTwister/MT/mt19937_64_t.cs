@@ -187,13 +187,5 @@ namespace MersenneTwister.MT
         {
             return ((genrand64_int64() >> 12) + 0.5) * (1.0 / 4503599627370496.0);
         }
-
-        /* generates a random number on [0,1) with 53-bit resolution*/
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double genrand64_res53()
-        {
-            ulong x = genrand64_int64();
-            return x * (1.0 / 18446744073709551616.0);
-        }
     }
 }

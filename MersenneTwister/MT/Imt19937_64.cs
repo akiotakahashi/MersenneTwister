@@ -16,6 +16,5 @@ namespace MersenneTwister.MT
         void init_by_array64(uint64_t[] init_key, uint64_t key_length);
         uint64_t genrand64_int64();
         double genrand64_real2();
-        double genrand64_res53();
     }
 }

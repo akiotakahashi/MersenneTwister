@@ -158,12 +158,12 @@ namespace MersenneTwister
 
         public override double NextDouble()
         {
-            return this.mt.genrand64_res53();
+            return this.mt.genrand64_real2();
         }
 
         protected override double Sample()
         {
-            return this.mt.genrand64_res53();
+            return this.mt.genrand64_real2();
         }
     }
 }
