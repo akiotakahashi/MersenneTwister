@@ -66,6 +66,9 @@
     <Compile Include="DsfmtRandom.cs" />
     <Compile Include="dSFMT\Idsfmt.cs" />
     <Compile Include="dSFMT\Idsfmt_params.cs" />
+    <Compile Include="MathUtil.cs" />
+    <Compile Include="MathUtil_UInt64ToDouble.cs" />
+    <Compile Include="MathUtil_UInt32ToDouble.cs" />
     <Compile Include="MT64Edition.cs" />
     <Compile Include="MTEdition.cs" />
     <Compile Include="MT\Imt19937.cs" />

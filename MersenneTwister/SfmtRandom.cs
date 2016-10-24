@@ -92,15 +92,14 @@ namespace MersenneTwister
         {
             if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
             var r = this.sfmt.sfmt_genrand_uint32();
-            return (int)(((ulong)maxValue * r) >> 32);
+            return MathUtil.Next(maxValue, r);
         }
 
         public override int Next(int minValue, int maxValue)
         {
             if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
-            var num = (ulong)((long)maxValue - minValue);
             var r = this.sfmt.sfmt_genrand_uint32();
-            return (int)((num * r) >> 32) + minValue;
+            return MathUtil.Next(minValue, maxValue, r);
         }
 
         public override void NextBytes(byte[] buffer)
@@ -141,8 +140,7 @@ namespace MersenneTwister
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private double gendouble()
         {
-            var x = this.sfmt.sfmt_genrand_uint64();
-            return x * (1.0 / 18446744073709551616.0);
+            return MathUtil.UInt64ToDouble_c0o1(this.sfmt.sfmt_genrand_uint64());
         }
     }
 }

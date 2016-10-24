@@ -189,8 +189,7 @@ namespace MersenneTwister.Benchmark
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static double ToDouble(byte[] buf, int index)
         {
-            var x = ToUInt64(buf, index);
-            return x * (1.0 / 18446744073709551616.0);
+            return MathUtil.UInt64ToDouble_c0o1(ToUInt64(buf, index));
         }
 
         private static double Measure<T>(T rng, int N, Func<T, long> proc, out double mean)

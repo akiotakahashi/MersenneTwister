@@ -63,6 +63,7 @@
     <Compile Include="RandomTest.cs" />
     <Compile Include="sfmt_t_Test.cs" />
     <Compile Include="BitScannerTest.cs" />
+    <Compile Include="MathUtilTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="dSFMT\dSFMT.11213.out.txt">
