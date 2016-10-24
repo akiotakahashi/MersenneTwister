@@ -209,9 +209,9 @@ namespace MersenneTwister.MT
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double genrand_res53()
         {
-            uint a = genrand_int32();
-            uint b = genrand_int32();
-            return ((a << 21) ^ b) * (1.0 / (1UL << 53));
+            uint a = genrand_int32() >> 5, b = genrand_int32() >> 6;
+            //return (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
+            return (((ulong)a << 26) | b) * (1.0 / 9007199254740992.0);
         }
     }
 }
