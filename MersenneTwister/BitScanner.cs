@@ -20,9 +20,22 @@ namespace MersenneTwister
             return (int)(x >> 24);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int NumberOfBit1(ulong x)
         {
             return NumberOfBit1((uint)x) + NumberOfBit1((uint)(x >> 32));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int NumberOfTrailingZeros32(uint x)
+        {
+            return NumberOfBit1((x - 1) & ~x);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int NumberOfTrailingZeros64(ulong x)
+        {
+            return NumberOfBit1((x - 1) & ~x);
         }
 
         public static int NumberOfLeadingZeros32(uint x)

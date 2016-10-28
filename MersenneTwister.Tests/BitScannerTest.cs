@@ -33,6 +33,36 @@ namespace MersenneTwister.Tests
         }
 
         [TestMethod]
+        public void BitScanner_NTZ_32()
+        {
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros32(0x00000001U));
+            Assert.AreEqual(1, BitScanner.NumberOfTrailingZeros32(0x00000002U));
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros32(0x00000003U));
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros32(0x80000001U));
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros32(0x40000001U));
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros32(0xFFFFFFF1U));
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros32(0xFFFFFFFFU));
+            Assert.AreEqual(32, BitScanner.NumberOfTrailingZeros32(0x00000000U));
+            Assert.AreEqual(31, BitScanner.NumberOfTrailingZeros32(0x80000000U));
+            Assert.AreEqual(30, BitScanner.NumberOfTrailingZeros32(0x40000000U));
+        }
+
+        [TestMethod]
+        public void BitScanner_NTZ_64()
+        {
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros64(0x0000000000000001UL));
+            Assert.AreEqual(1, BitScanner.NumberOfTrailingZeros64(0x0000000000000002UL));
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros64(0x0000000000000003UL));
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros64(0x8000000000000001UL));
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros64(0x4000000000000001UL));
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros64(0xFFFFFFFFFFFFFFF1UL));
+            Assert.AreEqual(0, BitScanner.NumberOfTrailingZeros64(0xFFFFFFFFFFFFFFFFUL));
+            Assert.AreEqual(64, BitScanner.NumberOfTrailingZeros64(0x0000000000000000UL));
+            Assert.AreEqual(63, BitScanner.NumberOfTrailingZeros64(0x8000000000000000UL));
+            Assert.AreEqual(62, BitScanner.NumberOfTrailingZeros64(0x4000000000000000UL));
+        }
+
+        [TestMethod]
         public void BitScanner_NLZ_32()
         {
             Assert.AreEqual(32, BitScanner.NumberOfLeadingZeros32(0));
