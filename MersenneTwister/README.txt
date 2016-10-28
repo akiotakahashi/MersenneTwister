@@ -51,16 +51,15 @@ and may give a array of seed for better initialization.
 
 EXTRA:
 
-We provide AccurateRandom whose Next(int maxValue) and
-Next(int minValue, int maxValue) return more accurate results by
-discarding insufficient random results and retrying.
+We provide AccurateRandom that returns more accurate results such that;
+- Next(int maxValue) and Next(int minValue, int maxValue) return
+   more accurate results by discarding insufficient random results.
+   (Probability Bias with Pigion Hole Principle)
+- NextDouble returns double value that has 53 bit precision of fraction
+  regardless of its exponent. So it returns 4.94065645841247E-324
+  aka Double.Epsilon at minimum except for zero.
 
-See Pigionhole principle for more information.
-
-So when you must generate very very much accurate results with
-Next(int maxValue) and Next(int minValue, int maxValue),use
-AccurateRandom.
-Note that Next(), NextDouble() and NextBytes() is accurate without it.
+When you must generate extremely accurate results, use AccurateRandom.
 
 =======================================================================
 
@@ -74,6 +73,3 @@ You must follow these licenses in addition to this software's.
 For further details take a look at LICENSE-MersenneTwister.txt.
 
 =======================================================================
-1.0.4
-
-* New: Initial release
