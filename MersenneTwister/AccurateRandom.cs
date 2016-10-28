@@ -3,12 +3,12 @@ using System.Runtime.CompilerServices;
 
 namespace MersenneTwister
 {
-    public class AccurateRandom : Random
+    public sealed class AccurateRandom : Random
     {
         private readonly Random rng;
 
-        private int cachedMaxValue = -1;
-        private int cachedValueMask = -1;
+        private uint cachedMaxValue = 0;
+        private uint cachedValueMask = 0;
 
         public AccurateRandom(Random baseRandom)
         {
@@ -32,33 +32,47 @@ namespace MersenneTwister
             return this.rng.Next();
         }
 
-        public override int Next(int maxValue)
+        private uint NextUInt32(uint maxValue)
         {
-            if (maxValue <= 0) {
-                if (maxValue == 0) { return 0; }
-                throw new ArgumentOutOfRangeException();
-            }
+            if (maxValue == 0) { return 0; }
             // determine the position of MSB
-            int mask;
+            uint mask;
             if (maxValue == this.cachedMaxValue) {
                 mask = this.cachedValueMask;
             }
             else {
                 this.cachedMaxValue = maxValue;
-                mask = this.cachedValueMask = (int)BitScanner.Mask((uint)maxValue);
+                mask = this.cachedValueMask = BitScanner.Mask(maxValue - 1);
             }
             //
-            int num;
-            do {
-                num = this.rng.Next();
-                num &= mask;
-            } while (num >= maxValue);
+            uint num;
+            if (maxValue < (1 << 30)) {
+                do {
+                    num = (uint)this.rng.Next() >> 1;
+                    num &= mask;
+                } while (num >= maxValue);
+            }
+            else {
+                do {
+                    var a = (uint)this.rng.Next() >> 1;
+                    var b = (uint)this.rng.Next() >> 1;
+                    num = a | (b << 30);
+                    num &= mask;
+                } while (num >= maxValue);
+            }
             return num;
+        }
+
+        public override int Next(int maxValue)
+        {
+            if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
+            return (int)this.NextUInt32((uint)maxValue);
         }
 
         public override int Next(int minValue, int maxValue)
         {
-            return this.Next(maxValue - minValue) + minValue;
+            if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
+            return (int)this.NextUInt32((uint)((long)maxValue - minValue)) + minValue;
         }
 
         public override void NextBytes(byte[] buffer)
@@ -66,26 +80,39 @@ namespace MersenneTwister
             this.rng.NextBytes(buffer);
         }
 
-        private readonly byte[] buffer64 = new byte[8];
-
-        private double nextDouble()
-        {
-            this.rng.NextBytes(this.buffer64);
-            var x = (ulong)BitConverter.ToInt64(this.buffer64, 0);
-            if (x == 0) { return 0; }
-            var msb = BitScanner.PositionOfMSB(x);
-            var exp = msb - 64 - 1 + 1023;
-            return BitConverter.Int64BitsToDouble(((long)exp << 52) | (long)(x & ((1UL << 52) - 1)));
-        }
-
         public override double NextDouble()
         {
-            return this.nextDouble();
+            return FullPrecisionDouble_c0o1(this.rng);
         }
 
         protected override double Sample()
         {
-            return this.nextDouble();
+            return FullPrecisionDouble_c0o1(this.rng);
+        }
+
+        public static double FullPrecisionDouble_c0o1(Random rng)
+        {
+            const int EffectiveBits = 30;
+            // exponent
+            var e = -1;
+            do {
+                var ntz = BitScanner.NumberOfTrailingZeros32((uint)(rng.Next() >> 1));
+                if (ntz < EffectiveBits) {
+                    e -= ntz;
+                    break;
+                }
+                e -= EffectiveBits;
+            } while (e > -1024);
+            //
+            if (e <= -1024) {
+                return 0;
+            }
+            // fraction
+            var a = rng.Next() >> 1;
+            var b = rng.Next() >> 1;
+            var f = ((long)a << 22) ^ b;
+            // IEEE-754
+            return BitConverter.Int64BitsToDouble(((long)(e + 1023) << 52) | f);
         }
     }
 }
