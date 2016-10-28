@@ -5,7 +5,10 @@ namespace MersenneTwister
 {
     public sealed class AccurateRandom : Random
     {
+        private const int BUFFER_SIZE = sizeof(ulong);
+
         private readonly Random rng;
+        private readonly byte[] buffer = new byte[BUFFER_SIZE];
 
         private uint cachedMaxValue = 0;
         private uint cachedValueMask = 0;
@@ -27,9 +30,15 @@ namespace MersenneTwister
         {
         }
 
+        private uint NextUInt32()
+        {
+            this.rng.NextBytes(this.buffer);
+            return BitConverter.ToUInt32(this.buffer, 0);
+        }
+
         public override int Next()
         {
-            return this.rng.Next();
+            return this.Next(int.MaxValue);
         }
 
         private uint NextUInt32(uint maxValue)
@@ -46,20 +55,10 @@ namespace MersenneTwister
             }
             //
             uint num;
-            if (maxValue < (1 << 30)) {
-                do {
-                    num = (uint)this.rng.Next() >> 1;
-                    num &= mask;
-                } while (num >= maxValue);
-            }
-            else {
-                do {
-                    var a = (uint)this.rng.Next() >> 1;
-                    var b = (uint)this.rng.Next() >> 1;
-                    num = a | (b << 30);
-                    num &= mask;
-                } while (num >= maxValue);
-            }
+            do {
+                num = this.NextUInt32();
+                num &= mask;
+            } while (num >= maxValue);
             return num;
         }
 
@@ -82,21 +81,23 @@ namespace MersenneTwister
 
         public override double NextDouble()
         {
-            return FullPrecisionDouble_c0o1(this.rng);
+            return FullPrecisionDouble_c0o1(this.rng, this.buffer);
         }
 
         protected override double Sample()
         {
-            return FullPrecisionDouble_c0o1(this.rng);
+            return FullPrecisionDouble_c0o1(this.rng, this.buffer);
         }
 
-        public static double FullPrecisionDouble_c0o1(Random rng)
+        private static double FullPrecisionDouble_c0o1(Random rng, byte[] buffer)
         {
-            const int EffectiveBits = 30;
+            const int EffectiveBits = BUFFER_SIZE * 8;
             // exponent
             var e = -1;
             do {
-                var ntz = BitScanner.NumberOfTrailingZeros32((uint)(rng.Next() >> 1));
+                rng.NextBytes(buffer);
+                var r = BitConverter.ToUInt64(buffer, 0);
+                var ntz = BitScanner.NumberOfTrailingZeros64(r);
                 if (ntz < EffectiveBits) {
                     e -= ntz;
                     break;
@@ -108,11 +109,17 @@ namespace MersenneTwister
                 return 0;
             }
             // fraction
-            var a = rng.Next() >> 1;
-            var b = rng.Next() >> 1;
-            var f = ((long)a << 22) ^ b;
+            rng.NextBytes(buffer);
+            var f = (long)(BitConverter.ToUInt64(buffer, 0) >> 12);
             // IEEE-754
             return BitConverter.Int64BitsToDouble(((long)(e + 1023) << 52) | f);
         }
+
+#if PUBLIC
+        public static double FullPrecisionDouble_c0o1(Random rng)
+        {
+            return FullPrecisionDouble_c0o1(rng, new byte[BUFFER_SIZE]);
+        }
+#endif
     }
 }
