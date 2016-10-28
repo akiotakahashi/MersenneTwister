@@ -123,7 +123,7 @@ namespace MersenneTwister
 #else
     internal
 #endif
-    sealed class DsfmtRandom<T> : MTRandom where T : Idsfmt, new()
+    sealed class DsfmtRandom<T> : RandomBase32 where T : Idsfmt, new()
     {
         private readonly T dsfmt = new T();
 
@@ -146,52 +146,12 @@ namespace MersenneTwister
             this.dsfmt.dsfmt_init_by_array(seed);
         }
 
-        public override int Next()
+        protected override uint GenerateUInt32()
         {
-            return (int)(this.dsfmt.dsfmt_genrand_uint32() >> 1);
+            return this.dsfmt.dsfmt_genrand_uint32();
         }
 
-        public override int Next(int maxValue)
-        {
-            if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
-            var r = this.dsfmt.dsfmt_genrand_uint32();
-            return MathUtil.Next(maxValue, r);
-        }
-
-        public override int Next(int minValue, int maxValue)
-        {
-            if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
-            var r = this.dsfmt.dsfmt_genrand_uint32();
-            return MathUtil.Next(minValue, maxValue, r);
-        }
-
-        public override void NextBytes(byte[] buffer)
-        {
-            if (buffer == null) { throw new ArgumentNullException(); }
-            var i = 3;
-            for (; i < buffer.Length; i += 4) {
-                var val = this.dsfmt.dsfmt_genrand_uint32();
-                buffer[i - 3] = (byte)val;
-                buffer[i - 2] = (byte)(val >> 8);
-                buffer[i - 1] = (byte)(val >> 16);
-                buffer[i - 0] = (byte)(val >> 24);
-            }
-            i -= 3;
-            if (i < buffer.Length) {
-                var val = this.dsfmt.dsfmt_genrand_uint32();
-                for (; i < buffer.Length; ++i) {
-                    buffer[i] = (byte)val;
-                    val >>= 8;
-                }
-            }
-        }
-
-        public override double NextDouble()
-        {
-            return this.dsfmt.dsfmt_genrand_close_open();
-        }
-
-        protected override double Sample()
+        protected override double GenerateDouble()
         {
             return this.dsfmt.dsfmt_genrand_close_open();
         }

@@ -4,7 +4,7 @@ using MersenneTwister.MT;
 
 namespace MersenneTwister
 {
-    public abstract class MTRandom : Random
+    public static class MTRandom
     {
         public static Random Create()
         {
@@ -69,7 +69,7 @@ namespace MersenneTwister
 #else
     internal
 #endif
-    sealed class MTRandom<T> : MTRandom where T : Imt19937, new()
+    sealed class MTRandom<T> : RandomBase32 where T : Imt19937, new()
     {
         private readonly T mt = new T();
 
@@ -89,54 +89,9 @@ namespace MersenneTwister
             this.mt.init_by_array(seed, seed.Length);
         }
 
-        public override int Next()
+        protected override uint GenerateUInt32()
         {
-            return this.mt.genrand_int31();
-        }
-
-        public override int Next(int maxValue)
-        {
-            if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
-            var r = this.mt.genrand_int32();
-            return MathUtil.Next(maxValue, r);
-        }
-
-        public override int Next(int minValue, int maxValue)
-        {
-            if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
-            var r = this.mt.genrand_int32();
-            return MathUtil.Next(minValue, maxValue, r);
-        }
-
-        public override void NextBytes(byte[] buffer)
-        {
-            if (buffer == null) { throw new ArgumentNullException(); }
-            var i = 3;
-            for (; i < buffer.Length; i += 4) {
-                var val = this.mt.genrand_int32();
-                buffer[i - 3] = (byte)val;
-                buffer[i - 2] = (byte)(val >> 8);
-                buffer[i - 1] = (byte)(val >> 16);
-                buffer[i - 0] = (byte)(val >> 24);
-            }
-            i -= 3;
-            if (i < buffer.Length) {
-                var val = this.mt.genrand_int32();
-                for (; i < buffer.Length; ++i) {
-                    buffer[i] = (byte)val;
-                    val >>= 8;
-                }
-            }
-        }
-
-        public override double NextDouble()
-        {
-            return this.mt.genrand_res53();
-        }
-
-        protected override double Sample()
-        {
-            return this.mt.genrand_res53();
+            return this.mt.genrand_int32();
         }
     }
 }

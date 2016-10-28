@@ -14,6 +14,16 @@ namespace MersenneTwister
 #endif
     static partial class MathUtil
     {
+        /// <summary>[0, int.MaxValue)</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Next(uint r)
+        {
+            // DO NOT USE: (int)(r >> 1)
+            // because Random.Next returns exclusive int.MaxValue
+            // i.e. The return value must be equal or less than 0x7FFFFFFE.
+            return (int)(((ulong)int.MaxValue * r) >> 32);
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Next(int maxValue, uint r)
         {

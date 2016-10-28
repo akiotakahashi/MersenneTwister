@@ -63,11 +63,9 @@ namespace MersenneTwister
 #else
     internal
 #endif
-    sealed class MT64Random<T> : MTRandom where T : Imt19937_64, new()
+    sealed class MT64Random<T> : RandomBase64 where T : Imt19937_64, new()
     {
         private readonly T mt = new T();
-
-        private int stock = -1;
 
         public MT64Random()
         {
@@ -87,82 +85,9 @@ namespace MersenneTwister
             this.mt.init_by_array64(seed, (uint)seed.Length);
         }
 
-        public override int Next()
+        protected override ulong GenerateUInt64()
         {
-            if (stock >= 0) {
-                var val = this.stock;
-                this.stock = -1;
-                return val;
-            }
-            var r = this.mt.genrand64_int64();
-            this.stock = (int)(r >> 33);
-            return (int)r & 0x7FFFFFFF;
-        }
-
-        private bool sflag32;
-        private uint stock32;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private uint genrand32_uint32()
-        {
-            if (sflag32) {
-                var val = this.stock32;
-                this.sflag32 = false;
-                return val;
-            }
-            var r = this.mt.genrand64_int64();
-            this.stock32 = (uint)(r >> 32);
-            this.sflag32 = true;
-            return (uint)r;
-        }
-
-        public override int Next(int maxValue)
-        {
-            if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
-            var r = this.genrand32_uint32();
-            return MathUtil.Next(maxValue, r);
-        }
-
-        public override int Next(int minValue, int maxValue)
-        {
-            if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
-            var r = this.genrand32_uint32();
-            return MathUtil.Next(minValue, maxValue, r);
-        }
-
-        public override void NextBytes(byte[] buffer)
-        {
-            if (buffer == null) { throw new ArgumentNullException(); }
-            var i = 7;
-            for (; i < buffer.Length; i += 8) {
-                var val = this.mt.genrand64_int64();
-                buffer[i - 7] = (byte)val;
-                buffer[i - 6] = (byte)(val >> 8);
-                buffer[i - 5] = (byte)(val >> 16);
-                buffer[i - 4] = (byte)(val >> 24);
-                buffer[i - 3] = (byte)(val >> 32);
-                buffer[i - 2] = (byte)(val >> 40);
-                buffer[i - 1] = (byte)(val >> 48);
-                buffer[i - 0] = (byte)(val >> 56);
-            }
-            i -= 7;
-            if (i < buffer.Length) {
-                var val = this.mt.genrand64_int64();
-                for (; i < buffer.Length; ++i) {
-                    buffer[i] = (byte)val;
-                    val >>= 8;
-                }
-            }
-        }
-
-        public override double NextDouble()
-        {
-            return MathUtil.UInt64ToDouble_c0o1(this.mt.genrand64_int64());
-        }
-
-        protected override double Sample()
-        {
-            return MathUtil.UInt64ToDouble_c0o1(this.mt.genrand64_int64());
+            return this.mt.genrand64_int64();
         }
     }
 }

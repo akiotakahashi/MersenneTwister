@@ -63,7 +63,7 @@ namespace MersenneTwister
 #else
     internal
 #endif
-    sealed class SfmtRandom<T> : Random where T : Isfmt, new()
+    sealed class SfmtRandom<T> : RandomBase64 where T : Isfmt, new()
     {
         private readonly T sfmt = new T();
 
@@ -83,64 +83,9 @@ namespace MersenneTwister
             this.sfmt.sfmt_init_by_array(seed);
         }
 
-        public override int Next()
+        protected override ulong GenerateUInt64()
         {
-            return (int)(this.sfmt.sfmt_genrand_uint32() >> 1);
-        }
-
-        public override int Next(int maxValue)
-        {
-            if (maxValue < 0) { throw new ArgumentOutOfRangeException(); }
-            var r = this.sfmt.sfmt_genrand_uint32();
-            return MathUtil.Next(maxValue, r);
-        }
-
-        public override int Next(int minValue, int maxValue)
-        {
-            if (maxValue < minValue) { throw new ArgumentOutOfRangeException(); }
-            var r = this.sfmt.sfmt_genrand_uint32();
-            return MathUtil.Next(minValue, maxValue, r);
-        }
-
-        public override void NextBytes(byte[] buffer)
-        {
-            if (buffer == null) { throw new ArgumentNullException(); }
-            var i = 7;
-            for (; i < buffer.Length; i += 8) {
-                var val = this.sfmt.sfmt_genrand_uint64();
-                buffer[i - 7] = (byte)val;
-                buffer[i - 6] = (byte)(val >> 8);
-                buffer[i - 5] = (byte)(val >> 16);
-                buffer[i - 4] = (byte)(val >> 24);
-                buffer[i - 3] = (byte)(val >> 32);
-                buffer[i - 2] = (byte)(val >> 40);
-                buffer[i - 1] = (byte)(val >> 48);
-                buffer[i - 0] = (byte)(val >> 56);
-            }
-            i -= 7;
-            if (i < buffer.Length) {
-                var val = this.sfmt.sfmt_genrand_uint64();
-                for (; i < buffer.Length; ++i) {
-                    buffer[i] = (byte)val;
-                    val >>= 8;
-                }
-            }
-        }
-
-        public override double NextDouble()
-        {
-            return this.gendouble();
-        }
-
-        protected override double Sample()
-        {
-            return this.gendouble();
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private double gendouble()
-        {
-            return MathUtil.UInt64ToDouble_c0o1(this.sfmt.sfmt_genrand_uint64());
+            return this.sfmt.sfmt_genrand_uint64();
         }
     }
 }
