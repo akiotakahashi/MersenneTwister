@@ -29,7 +29,7 @@ namespace MersenneTwister
 
         public override int Next()
         {
-            return base.Next();
+            return this.rng.Next();
         }
 
         public override int Next(int maxValue)
