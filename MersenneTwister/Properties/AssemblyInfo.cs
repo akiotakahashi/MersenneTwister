@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MersenneTwister")]
-[assembly: AssemblyCopyright("Copyright (C) 2016 Akio Takahashi")]
+[assembly: AssemblyCopyright("Copyright (C) 2016-2019 Akio Takahashi")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("")]
@@ -27,4 +27,4 @@ using System.Runtime.InteropServices;
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("1.0.5")]
+[assembly: AssemblyFileVersion("1.0.6")]
