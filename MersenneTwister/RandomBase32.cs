@@ -35,15 +35,15 @@ namespace MersenneTwister
             }
             i -= 3;
             val = this.GenerateUInt32();
-            switch (i) {
+            switch (buffer.Length - i) {
             case 3:
-                buffer[i] = Shift(ref val);
+                buffer[i++] = Shift(ref val);
                 goto case 2;
             case 2:
-                buffer[i] = Shift(ref val);
+                buffer[i++] = Shift(ref val);
                 goto case 1;
             case 1:
-                buffer[i] = Shift(ref val);
+                buffer[i++] = Shift(ref val);
                 break;
             }
         }

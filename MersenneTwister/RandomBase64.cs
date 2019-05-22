@@ -48,27 +48,27 @@ namespace MersenneTwister
             }
             i -= 7;
             val = this.GenerateUInt64();
-            switch (i) {
+            switch (buffer.Length - i) {
             case 7:
-                buffer[i] = Shift(ref val);
+                buffer[i++] = Shift(ref val);
                 goto case 6;
             case 6:
-                buffer[i] = Shift(ref val);
+                buffer[i++] = Shift(ref val);
                 goto case 5;
             case 5:
-                buffer[i] = Shift(ref val);
+                buffer[i++] = Shift(ref val);
                 goto case 4;
             case 4:
-                buffer[i] = Shift(ref val);
+                buffer[i++] = Shift(ref val);
                 goto case 3;
             case 3:
-                buffer[i] = Shift(ref val);
+                buffer[i++] = Shift(ref val);
                 goto case 2;
             case 2:
-                buffer[i] = Shift(ref val);
+                buffer[i++] = Shift(ref val);
                 goto case 1;
             case 1:
-                buffer[i] = Shift(ref val);
+                buffer[i++] = Shift(ref val);
                 break;
             }
         }
