@@ -25,6 +25,7 @@ namespace MersenneTwister
 
         public sealed override void NextBytes(byte[] buffer)
         {
+            this.GenerateBytes(buffer);
         }
 
         public sealed override double NextDouble()
