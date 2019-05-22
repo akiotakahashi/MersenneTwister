@@ -5,7 +5,7 @@
     <version>1.0.6</version>
     <title>Mersenne Twister</title>
     <authors>Akio Takahashi</authors>
-    <licenseUrl>https://opensource.org/licenses/BSD-3-Clause</licenseUrl>
+    <license type="file">content\LICENSES-MersenneTwister.txt</license>
     <projectUrl>https://github.com/akiotakahashi/MersenneTwister</projectUrl>
     <!--iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl-->
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
