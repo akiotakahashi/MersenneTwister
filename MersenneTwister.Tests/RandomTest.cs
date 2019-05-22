@@ -47,6 +47,40 @@ namespace MersenneTwister.Tests
                 if (n2 == 0) { rng.Next(-19, 31); }
                 if (nd == 0) { rng.NextDouble(); }
             });
+            TestNextBytes(rng, 0);
+            TestNextBytes(rng, 1);
+            TestNextBytes(rng, 2);
+            TestNextBytes(rng, 4);
+            TestNextBytes(rng, 7);
+            TestNextBytes(rng, 8);
+            TestNextBytes(rng, 9);
+            TestNextBytes(rng, 15);
+            TestNextBytes(rng, 16);
+            TestNextBytes(rng, 17);
+            TestNextBytes(rng, 127);
+            TestNextBytes(rng, 128);
+            TestNextBytes(rng, 129);
+            TestNextBytes(rng, 255);
+            TestNextBytes(rng, 256);
+            TestNextBytes(rng, 257);
+        }
+
+        private void TestNextBytes(Random rng, int byteSize)
+        {
+            var buf = new byte[byteSize];
+            var nzf = new bool[byteSize];
+            for (var trial = 0; trial < 256; ++trial) {
+                rng.NextBytes(buf);
+                var num = 0;
+                for (var i = 0; i < byteSize; ++i) {
+                    nzf[i] |= (buf[i] != 0);
+                    num += (nzf[i] ? 1 : 0);
+                }
+                if (num == byteSize) {
+                    return;
+                }
+            }
+            Assert.Fail("suspicious uninitialized bytes are detected");
         }
 
         [TestMethod]
