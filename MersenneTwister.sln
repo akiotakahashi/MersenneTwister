@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MersenneTwister", "MersenneTwister\MersenneTwister.csproj", "{FBF197EA-E04C-4E0B-99FB-BBB60A4BDB83}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7933780A-6601-4932-B1F8-65F2F73D5F30}"
 	ProjectSection(SolutionItems) = preProject
-		Rebracer.xml = Rebracer.xml
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MersenneTwister.Tests", "MersenneTwister.Tests\MersenneTwister.Tests.csproj", "{CE129CFC-57E2-49F3-9C41-22C35BDEFF63}"
@@ -40,5 +40,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8BED9A59-A2CD-4D68-AB78-47927E56ECF9}
 	EndGlobalSection
 EndGlobal
