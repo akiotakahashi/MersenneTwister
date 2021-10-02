@@ -83,7 +83,7 @@ namespace MersenneTwister
             this.sfmt.sfmt_init_by_array(seed);
         }
 
-        protected override ulong GenerateUInt64()
+        public override ulong GenerateUInt64()
         {
             return this.sfmt.sfmt_genrand_uint64();
         }

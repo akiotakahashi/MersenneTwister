@@ -89,7 +89,7 @@ namespace MersenneTwister
             this.mt.init_by_array(seed, seed.Length);
         }
 
-        protected override uint GenerateUInt32()
+        public override uint GenerateUInt32()
         {
             return this.mt.genrand_int32();
         }

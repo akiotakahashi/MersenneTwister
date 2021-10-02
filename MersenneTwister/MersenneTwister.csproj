@@ -82,7 +82,7 @@
     <Compile Include="MTRandom.cs" />
     <Compile Include="MT\mt_base_t.cs" />
     <Compile Include="AccurateRandom.cs" />
-    <Compile Include="RandomBase.cs" />
+    <Compile Include="MersenneTwisterRandom.cs" />
     <Compile Include="RandomBase32.cs" />
     <Compile Include="RandomBase64.cs" />
     <Compile Include="Randoms.cs" />

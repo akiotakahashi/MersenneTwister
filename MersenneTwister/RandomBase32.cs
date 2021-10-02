@@ -7,16 +7,21 @@ using System.Threading.Tasks;
 
 namespace MersenneTwister
 {
-    public abstract class RandomBase32 : RandomBase
+#if PUBLIC
+    public
+#else
+    internal
+#endif
+    abstract class RandomBase32 : MersenneTwisterRandom
     {
-        protected sealed override ulong GenerateUInt64()
+        public sealed override ulong GenerateUInt64()
         {
             var a = this.GenerateUInt32();
             var b = this.GenerateUInt32();
             return a | ((ulong)b << 32);
         }
 
-        protected override double GenerateDouble()
+        public override double GenerateDouble()
         {
             return MathUtil.UInt32ToDouble_c0o1(this.GenerateUInt32());
         }

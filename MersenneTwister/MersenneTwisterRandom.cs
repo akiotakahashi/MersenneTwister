@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MersenneTwister
 {
-    public abstract class RandomBase : Random
+    public abstract class MersenneTwisterRandom : Random
     {
         public sealed override int Next()
         {
@@ -38,9 +38,9 @@ namespace MersenneTwister
             return this.GenerateDouble();
         }
 
-        protected abstract uint GenerateUInt32();
-        protected abstract ulong GenerateUInt64();
-        protected abstract double GenerateDouble();
+        public abstract uint GenerateUInt32();
+        public abstract ulong GenerateUInt64();
+        public abstract double GenerateDouble();
         protected abstract void GenerateBytes(byte[] buffer);
     }
 }

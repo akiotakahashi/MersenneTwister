@@ -146,12 +146,12 @@ namespace MersenneTwister
             this.dsfmt.dsfmt_init_by_array(seed);
         }
 
-        protected override uint GenerateUInt32()
+        public override uint GenerateUInt32()
         {
             return this.dsfmt.dsfmt_genrand_uint32();
         }
 
-        protected override double GenerateDouble()
+        public override double GenerateDouble()
         {
             return this.dsfmt.dsfmt_genrand_close_open();
         }

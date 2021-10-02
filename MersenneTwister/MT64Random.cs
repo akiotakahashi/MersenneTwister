@@ -85,7 +85,7 @@ namespace MersenneTwister
             this.mt.init_by_array64(seed, (uint)seed.Length);
         }
 
-        protected override ulong GenerateUInt64()
+        public override ulong GenerateUInt64()
         {
             return this.mt.genrand64_int64();
         }
